@@ -10,7 +10,6 @@ public class Customer {
   private String address;
   private String description;
    
-   
   public void setCustId(String id)
   {
       this.custId = id;
