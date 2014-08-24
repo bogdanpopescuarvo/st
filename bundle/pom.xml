@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- ====================================================================== -->
+	<!-- P A R E N T P R O J E C T D E S C R I P T I O N -->
+	<!-- ====================================================================== -->
+	<parent>
+		<groupId>com.st.olm.cq</groupId>
+		<artifactId>st</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- ====================================================================== -->
+	<!-- P R O J E C T D E S C R I P T I O N -->
+	<!-- ====================================================================== -->
+
+	<artifactId>st-bundle</artifactId>
+	<packaging>bundle</packaging>
+	<name>ST OLM Bundle</name>
+
+	<!-- ====================================================================== -->
+	<!-- B U I L D D E F I N I T I O N -->
+	<!-- ====================================================================== -->
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-scr-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-scr-descriptor</id>
+						<goals>
+							<goal>scr</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>com.st.olm.cq-bundle</Bundle-SymbolicName>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.sling</groupId>
+				<artifactId>maven-sling-plugin</artifactId>
+				<configuration>
+					<slingUrl>http://${crx.host}:${crx.port}/apps/contactus/install</slingUrl>
+					<usePut>true</usePut>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+
+			<artifactId>org.osgi.core</artifactId>
+
+			<version>1.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.sling</groupId>
+			<artifactId>org.apache.sling.commons.osgi</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.apache.jackrabbit</groupId>
+			<artifactId>jackrabbit-core</artifactId>
+			<version>2.4.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.jackrabbit</groupId>
+			<artifactId>jackrabbit-jcr-commons</artifactId>
+			<version>2.4.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.sling</groupId>
+			<artifactId>org.apache.sling.jcr.api</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.jcr</groupId>
+			<artifactId>jcr</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- Gson: Java to Json conversion -->
+		<dependency>
+			<groupId>org.apache.sling</groupId>
+			<artifactId>org.apache.sling.api</artifactId>
+			<version>2.7.0</version>
+			<type>bundle</type>
+		</dependency>
+		<dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-api</artifactId>
+            <version>5.5.0</version>
+            <scope>provided</scope>
+        </dependency>
+         
+        <dependency>
+            <groupId>com.day.cq</groupId>
+            <artifactId>cq-commons</artifactId>
+            <version>5.5.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+        	<groupId>com.google.code.gson</groupId>
+        	<artifactId>gson</artifactId>
+        	<version>2.3</version>
+        </dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+  			<id>codehaus</id>
+  			<url>http://repository.codehaus.org/org/codehaus</url>
+		  	<snapshots>
+    			<enabled>true</enabled>
+  			</snapshots>
+  			<releases>
+    			<enabled>true</enabled>
+  			</releases>
+		</repository>
+		<repository>
+			<id>central</id>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+</repositories>
+</project>

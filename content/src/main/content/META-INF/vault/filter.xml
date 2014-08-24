@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/st">
+      <include pattern="/apps/st(/.*)?" />
+	    <exclude pattern="/apps/st/install(/.*)?" />
+    </filter>
+</workspaceFilter>
