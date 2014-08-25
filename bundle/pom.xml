@@ -150,6 +150,12 @@
             <version>5.5.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.day.cq</groupId>
+            <artifactId>cq-search</artifactId>
+            <version>5.5.4</version>
+            <scope>provided</scope>
+        </dependency>
 
 
         <dependency>

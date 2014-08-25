@@ -1,8 +1,10 @@
 package com.st.olm.cq.api.contactus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.Session;
@@ -17,6 +19,11 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.Query;
+import com.day.cq.search.QueryBuilder;
+import com.day.cq.search.result.Hit;
+import com.day.cq.search.result.SearchResult;
 import com.google.gson.Gson;
 
 //This is a component so it can provide or consume services
@@ -33,16 +40,18 @@ public class STContactServiceImpl implements STContactService {
 	@Reference
 	private ResourceResolverFactory resolverFactory;
 
+	@Reference
+	private QueryBuilder builder;
+
 	@Override
 	public String injestContactData(STContact contact) {
-		
+
 		int num = 0;
 		try {
 
 			// Invoke the adaptTo method to create a Session used to create a
 			// QueryManager
-			ResourceResolver resourceResolver = resolverFactory
-					.getAdministrativeResourceResolver(null);
+			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
 			session = resourceResolver.adaptTo(Session.class);
 
 			// Create a node that represents the root node
@@ -67,9 +76,7 @@ public class STContactServiceImpl implements STContactService {
 											// node
 
 			// Store content from the client JSP in the JCR
-			Node contactNode = contactRoot.addNode(
-					"contact" + contact.getContactName() + contactId,
-					"nt:unstructured");
+			Node contactNode = contactRoot.addNode("contact" + contact.getContactName() + contactId, "nt:unstructured");
 
 			// make sure name of node is unique
 			contactNode.setProperty("id", contactId);
@@ -77,10 +84,8 @@ public class STContactServiceImpl implements STContactService {
 			contactNode.setProperty("city", contact.getCity());
 			contactNode.setProperty("state", contact.getState());
 			contactNode.setProperty("address", contact.getAddress());
-			contactNode.setProperty("googleLatitude",
-					contact.getGoogleLatitude());
-			contactNode.setProperty("googleLongitude",
-					contact.getGoogleLongitude());
+			contactNode.setProperty("googleLatitude", contact.getGoogleLatitude());
+			contactNode.setProperty("googleLongitude", contact.getGoogleLongitude());
 			contactNode.setProperty("addressType", contact.getAddressType());
 			contactNode.setProperty("phone", contact.getPhone());
 			contactNode.setProperty("fax", contact.getFax());
@@ -113,67 +118,76 @@ public class STContactServiceImpl implements STContactService {
 		List<STContact> contacttList = new ArrayList<STContact>();
 		try {
 
-			// Invoke the adaptTo method to create a Session used to create a
-			// QueryManager
-			ResourceResolver resourceResolver = resolverFactory
-					.getAdministrativeResourceResolver(null);
+			// Invoke the adaptTo method to create a Session
+			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
 			session = resourceResolver.adaptTo(Session.class);
 
-			// Obtain the query manager for the session ...
-			javax.jcr.query.QueryManager queryManager = session.getWorkspace()
-					.getQueryManager();
+			String fulltextSearchTerm = "Geometrixx";
 
-			// Setup the quesry based on user input
-			String sqlStatement = "";
+			// create query description as hash map (simplest way, same as form
+			// post)
+			Map<String, String> map = new HashMap<String, String>();
 
-			// Setup the query to get all STContact records
-			if (filter==null)
-				sqlStatement = "SELECT * FROM [nt:unstructured]";
-			else if (filter.equals("Active STContact"))
-				sqlStatement = "SELECT * FROM [nt:unstructured] WHERE CONTAINS(desc, 'Active')";
-			else if (filter.equals("Past STContact"))
-				sqlStatement = "SELECT * FROM [nt:unstructured] WHERE CONTAINS(desc, 'Past')";
+			// create query description as hash map (simplest way, same as form
+			// post)
 
-			javax.jcr.query.Query query = queryManager.createQuery(
-					sqlStatement, "JCR-SQL2");
+			map.put("path", "/content/contact");
+			map.put("type", "nt:unstructured");
+			// can be done in map or with Query methods
+			map.put("p.offset", "0"); // same as query.setStart(0) below
+			map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
 
-			// Execute the query and get the results ...
-			javax.jcr.query.QueryResult result = query.execute();
+			Query query = builder.createQuery(PredicateGroup.create(map), session);
+
+			query.setStart(0);
+			query.setHitsPerPage(20);
+
+			SearchResult result = query.getResult();
+
+			// paging metadata
+			int hitsPerPage = result.getHits().size(); // 20 (set above) or
+														// lower
+			long totalMatches = result.getTotalMatches();
+			long offset = result.getStartIndex();
+			long numberOfPages = totalMatches / 20;
 
 			// Iterate over the nodes in the results ...
-			javax.jcr.NodeIterator nodeIter = result.getNodes();
 
-			while (nodeIter.hasNext()) {
+			for (Hit hit : result.getHits()) {
 
 				// For each node-- create a contacts instance
 				contact = new STContact();
 
-				javax.jcr.Node node = nodeIter.nextNode();
+				javax.jcr.Node node = hit.getNode();
 
-				contact.setCompanyName(node.getProperty("companyName")
-						.getString());
+				contact.setCompanyName(node.getProperty("companyName").getString());
 				contact.setCity(node.getProperty("city").getString());
 				contact.setState(node.getProperty("state").getString());
 				contact.setAddress(node.getProperty("address").getString());
-				contact.setGoogleLatitude(node.getProperty("googleLatitude")
-						.getString());
-				contact.setGoogleLongitude(node.getProperty("googleLongitude")
-						.getString());
-				contact.setAddressType(node.getProperty("addressType")
-						.getString());
+				contact.setGoogleLatitude(node.getProperty("googleLatitude").getString());
+				contact.setGoogleLongitude(node.getProperty("googleLongitude").getString());
+				contact.setAddressType(node.getProperty("addressType").getString());
 				contact.setPhone(node.getProperty("phone").getString());
 				contact.setFax(node.getProperty("fax").getString());
-				contact.setEmail(node.getProperty("email").getString());
-				contact.setWebsite(node.getProperty("website").getString());
-				contact.setCoverage(node.getProperty("coverage").getString());
-				contact.setContactName(node.getProperty("contactName")
-						.getString());
-				contact.setDescription(node.getProperty("description")
-						.getString());
+				if (node.hasProperty("email"))
+					contact.setEmail(node.getProperty("email").getString());
+				if (node.hasProperty("website"))
+					contact.setWebsite(node.getProperty("website").getString());
+				if (node.hasProperty("coverage"))
+					contact.setCoverage(node.getProperty("coverage").getString());
+				if (node.hasProperty("contactName"))
+					contact.setContactName(node.getProperty("contactName").getString());
+				
+				if (node.hasProperty("description"))
+				contact.setDescription(node.getProperty("description").getString());
+				
+				if (node.hasProperty("imageUrl"))
 				contact.setImageUrl(node.getProperty("imageUrl").getString());
+				if (node.hasProperty("imageAlt"))
 				contact.setImageAlt(node.getProperty("imageAlt").getString());
-				contact.setContactType(node.getProperty("contactType")
-						.getString());
+				if (node.hasProperty("contactType"))
+				contact.setContactType(node.getProperty("contactType").getString());
+				
 
 				// Push contact to the list
 				contactList.add(contact);
@@ -200,8 +214,7 @@ public class STContactServiceImpl implements STContactService {
 			int index = 0;
 			int childRecs = 0;
 
-			java.lang.Iterable<Node> contactNode = JcrUtils.getChildNodes(
-					content, "contact");
+			java.lang.Iterable<Node> contactNode = JcrUtils.getChildNodes(content, "contact");
 			Iterator it = contactNode.iterator();
 
 			// only going to be 1 content/contact node if it exists

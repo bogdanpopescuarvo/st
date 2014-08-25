@@ -82,6 +82,7 @@
 									'addressType':addressType,
 									'phone':phone,
 									'fax':fax,
+									'email':email,
 									'coverage':coverage,
 									'contactName':contactName,
 									'description':description,
