@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface STContactService {
 	//Stores contact data in the Adobe CQ JCR
-    public int injestContactData(STContact contact);
+    public String injestContactData(STContact contact);
      
     /*
      * Retrieves contact data from the AEM JCR and returns all contact

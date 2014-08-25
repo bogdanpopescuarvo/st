@@ -17,6 +17,8 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+
 //This is a component so it can provide or consume services
 @Component
 @Service
@@ -32,7 +34,8 @@ public class STContactServiceImpl implements STContactService {
 	private ResourceResolverFactory resolverFactory;
 
 	@Override
-	public int injestContactData(STContact contact) {
+	public String injestContactData(STContact contact) {
+		
 		int num = 0;
 		try {
 
@@ -93,13 +96,13 @@ public class STContactServiceImpl implements STContactService {
 			// Save the session changes and log out
 			session.save();
 			session.logout();
-			return contactId;
+			return new Gson().toJson(contact);
 		}
 
 		catch (Exception e) {
 			log.error("RepositoryException: " + e);
+			return "error";
 		}
-		return 0;
 	}
 
 	@Override
