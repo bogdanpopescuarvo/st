@@ -27,7 +27,7 @@ String contactRes = cs.injestContactData(contact);
 //Send the data back to the client
 JSONWriter writer = new JSONWriter(response.getWriter());
 writer.object();
-writer.key("json");
+writer.key("contacts");
 writer.value(contactRes);
 
 writer.endObject();

@@ -96,7 +96,7 @@ public class STContactServiceImpl implements STContactService {
 			// Save the session changes and log out
 			session.save();
 			session.logout();
-			return new Gson().toJson(contact);
+			return new Gson().toJson(getContactData(null));
 		}
 
 		catch (Exception e) {
@@ -127,8 +127,8 @@ public class STContactServiceImpl implements STContactService {
 			String sqlStatement = "";
 
 			// Setup the query to get all STContact records
-			if (filter.equals("All STContacts"))
-				sqlStatement = "SELECT * FROM [nt:unstructured] WHERE CONTAINS(desc, 'STContact')";
+			if (filter==null)
+				sqlStatement = "SELECT * FROM [nt:unstructured]";
 			else if (filter.equals("Active STContact"))
 				sqlStatement = "SELECT * FROM [nt:unstructured] WHERE CONTAINS(desc, 'Active')";
 			else if (filter.equals("Past STContact"))

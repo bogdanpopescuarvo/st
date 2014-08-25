@@ -97,10 +97,7 @@
 								success: function(rawData, status, xhr) {
                                     var data;
                                     try {
-                                            data = $.parseJSON(rawData);
-                                            //Set the fields in the forum
-    
-                                            alert(data);
+                                            alert(rawData);
                                     } catch(err) {
                                         failure(err);
                                     }
