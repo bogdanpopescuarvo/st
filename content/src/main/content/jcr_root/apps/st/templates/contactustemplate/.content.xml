@@ -7,5 +7,5 @@
     ranking="{Long}100">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        sling:resourceType="st/components/contactus"/>
+        sling:resourceType="st/contactus/components/contactusconfig"/>
 </jcr:root>
