@@ -22,7 +22,7 @@
 
 
 com.st.olm.cq.api.contactus.STContactService cs = sling.getService(com.st.olm.cq.api.contactus.STContactService.class);
-String contactRes = cs.injestContactData(contact);
+com.google.gson.JsonElement contactRes = cs.injestContactData(contact);
 
 //Send the data back to the client
 JSONWriter writer = new JSONWriter(response.getWriter());
