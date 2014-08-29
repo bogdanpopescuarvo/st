@@ -2,9 +2,11 @@ package com.st.olm.cq.api.contactus;
 
 import java.util.List;
 
+import com.google.gson.JsonElement;
+
 public interface STContactService {
 	//Stores contact data in the Adobe CQ JCR
-    public String injestContactData(STContact contact);
+    public JsonElement injestContactData(STContact contact);
      
     /*
      * Retrieves contact data from the AEM JCR and returns all contact

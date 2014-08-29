@@ -25,6 +25,8 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 //This is a component so it can provide or consume services
 @Component
@@ -44,7 +46,7 @@ public class STContactServiceImpl implements STContactService {
 	private QueryBuilder builder;
 
 	@Override
-	public String injestContactData(STContact contact) {
+	public JsonElement injestContactData(STContact contact) {
 
 		int num = 0;
 		try {
@@ -101,12 +103,12 @@ public class STContactServiceImpl implements STContactService {
 			// Save the session changes and log out
 			session.save();
 			session.logout();
-			return new Gson().toJson(getContactData(null));
+			return new Gson().toJsonTree(getContactData(null));
 		}
 
 		catch (Exception e) {
 			log.error("RepositoryException: " + e);
-			return "error";
+			return new Gson().toJsonTree("error");
 		}
 	}
 
