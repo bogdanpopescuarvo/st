@@ -281,7 +281,8 @@ public class STContactServiceImpl implements STContactService {
 
 			map.put("path", "/content/contact");
 			map.put("type", "nt:unstructured");
-			map.put("id",Long.valueOf(id));
+			map.put("property","id");
+			map.put("property.value",id);
 			// can be done in map or with Query methods
 			map.put("p.offset", "0"); // same as query.setStart(0) below
 			map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
