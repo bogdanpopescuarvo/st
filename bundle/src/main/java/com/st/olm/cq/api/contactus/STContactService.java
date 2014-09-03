@@ -17,6 +17,7 @@ public interface STContactService {
      *Active Contact- retrieves current contacts from the JCR
      *Past Contact - retrieves old contacts no longer current contacts
      */
+<<<<<<< HEAD
     public List<STContact> getContactData(String filter);
     
     
@@ -30,4 +31,9 @@ public interface STContactService {
      *Past Contact - retrieves old contacts no longer current contacts
      */
     public JsonElement getContact(String id); 
+=======
+    public List<STContact> getContactData(String filter); 
+    
+    public List<STContactDisplay> getContactDataForDisplay(String filter);
+>>>>>>> d52bf37afe517ed28cd3645857596613a9fffa1d
 }

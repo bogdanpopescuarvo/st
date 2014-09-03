@@ -206,6 +206,28 @@ public class STContactServiceImpl implements STContactService {
 		return null;
 	}
 
+
+	@Override
+	public List<STContactDisplay> getContactDataForDisplay(String filter) {
+		
+		List<STContactDisplay> displayableContacts = new ArrayList<STContactDisplay>();
+		STContactDisplay contact = null;
+		List<STContact> jcrContacts = getContactData(filter);
+		for (STContact stContact : jcrContacts) {
+			contact = new STContactDisplay();
+			contact.setName(stContact.getContactName());
+			contact.setAddress(stContact.getAddress());
+			contact.setCity(stContact.getCity());
+			contact.setFax(stContact.getFax());
+			contact.setLat(stContact.getGoogleLatitude());
+			contact.setLon(stContact.getGoogleLongitude());
+			contact.setPhone(stContact.getPhone());
+			contact.setZip(stContact.getState());
+			displayableContacts.add(contact);
+		}
+		return displayableContacts;
+	}
+	
 	/*
 	 * Determines if the content/contact node exists This method returns these
 	 * values: -1 - if contact does not exist 0 - if content/contact node
