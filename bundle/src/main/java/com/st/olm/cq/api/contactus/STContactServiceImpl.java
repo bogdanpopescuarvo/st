@@ -163,6 +163,7 @@ public class STContactServiceImpl implements STContactService {
 				javax.jcr.Node node = hit.getNode();
 
 				contact.setCompanyName(node.getProperty("companyName").getString());
+				contact.setId(node.getProperty("id").getLong());
 				contact.setCity(node.getProperty("city").getString());
 				contact.setState(node.getProperty("state").getString());
 				contact.setAddress(node.getProperty("address").getString());
@@ -238,6 +239,86 @@ public class STContactServiceImpl implements STContactService {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public JsonElement getContact(String id) {
+		try {
+
+			// Invoke the adaptTo method to create a Session
+			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
+			session = resourceResolver.adaptTo(Session.class);
+
+
+			// create query description as hash map (simplest way, same as form
+			// post)
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			// create query description as hash map (simplest way, same as form
+			// post)
+
+			map.put("path", "/content/contact");
+			map.put("type", "nt:unstructured");
+			map.put("id",Long.valueOf(id));
+			// can be done in map or with Query methods
+			map.put("p.offset", "0"); // same as query.setStart(0) below
+			map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
+
+			Query query = builder.createQuery(PredicateGroup.create(map), session);
+
+
+			SearchResult result = query.getResult();
+
+
+			// Iterate over the nodes in the results ...
+			STContact contact = new STContact();
+			for (Hit hit : result.getHits()) {
+
+				// For each node-- create a contacts instance
+				
+
+				javax.jcr.Node node = hit.getNode();
+
+				contact.setCompanyName(node.getProperty("companyName").getString());
+				contact.setId(node.getProperty("id").getLong());
+				contact.setCity(node.getProperty("city").getString());
+				contact.setState(node.getProperty("state").getString());
+				contact.setAddress(node.getProperty("address").getString());
+				contact.setGoogleLatitude(node.getProperty("googleLatitude").getString());
+				contact.setGoogleLongitude(node.getProperty("googleLongitude").getString());
+				contact.setAddressType(node.getProperty("addressType").getString());
+				contact.setPhone(node.getProperty("phone").getString());
+				contact.setFax(node.getProperty("fax").getString());
+				if (node.hasProperty("email"))
+					contact.setEmail(node.getProperty("email").getString());
+				if (node.hasProperty("website"))
+					contact.setWebsite(node.getProperty("website").getString());
+				if (node.hasProperty("coverage"))
+					contact.setCoverage(node.getProperty("coverage").getString());
+				if (node.hasProperty("contactName"))
+					contact.setContactName(node.getProperty("contactName").getString());
+				
+				if (node.hasProperty("description"))
+				contact.setDescription(node.getProperty("description").getString());
+				
+				if (node.hasProperty("imageUrl"))
+				contact.setImageUrl(node.getProperty("imageUrl").getString());
+				if (node.hasProperty("imageAlt"))
+				contact.setImageAlt(node.getProperty("imageAlt").getString());
+				if (node.hasProperty("contactType"))
+				contact.setContactType(node.getProperty("contactType").getString());
+
+				break;
+			}
+
+			// Log out
+			session.logout();
+			return new Gson().toJsonTree(contact);
+
+		} catch (Exception e) {
+			log.error("RepositoryException: " + e);
+			return new Gson().toJsonTree("error");
+		}
 	}
 
 }
