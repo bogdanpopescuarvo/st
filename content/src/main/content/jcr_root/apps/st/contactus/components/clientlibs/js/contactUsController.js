@@ -48,12 +48,26 @@ App.controller('contactUsController', function($scope,$http, $window) {
         			transformRequest: transform
         		}).success(function(data){
            		 $scope.contactList = angular.fromJson(data.contacts);
-                alert($scope.contactList.length);
         }).error(function(data,status){
         });
-		
+
+	};
+     	$scope.getContact = function(id) {
+     		alert("intra");
+		 var url = location.pathname.replace(".html", "/_jcr_content.query.json") ;
+			$http.get(url,
+        		{'id': id},
+        		{
+        			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+        			transformRequest: transform
+        		}).success(function(data){
+           		 $scope.contact = angular.fromJson(data.contact);
+        }).error(function(data,status){
+        });
+
 	}
 
+  
 	
 });
 

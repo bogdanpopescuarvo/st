@@ -136,6 +136,7 @@
             <th style="text-align: center;">Contact Type {{contactList.length}}</th>
             <th style="text-align: center;">Company Name</th>
             <th style="text-align: center;">City</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -143,6 +144,8 @@
             <td style="text-align: center;">Type:{{contact.contactType }}&nbsp;</td>
             <td>Company:&nbsp;{{contact.companyName}}</td>
             <td>City:&nbsp;{{contact.city}}</td>
+            <td><input type="button" value="Edit Contact" name="submit" id="submit" value="Submit" ng-click="getContact('{{contact.id}}');"></td>
+
         </tr>
     </tbody>
 </table>
