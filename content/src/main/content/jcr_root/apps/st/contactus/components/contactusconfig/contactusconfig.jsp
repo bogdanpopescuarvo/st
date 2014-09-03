@@ -2,13 +2,13 @@
 <cq:includeClientLib categories="angularJSClient" />
 <cq:includeClientLib categories="stJSLibrary" />
 
-<html>
+<html ng-app="stContactUsApp">
 <head>
 <meta charset="UTF-8">
 <title>ST Contact Us Page Configuration</title>
 </head>
 
-<body ng-app="stContactUsApp" >
+<body  >
 <div ng-controller="contactUsController">
 
 	<h1>ST Contact Save</h1>
@@ -121,7 +121,7 @@
 
 			<tr>
 				<td></td>
-				<td><input type="button" value="Save Contact" name="submit" id="submit" value="Submit" ng-click="saveContact();"></td>
+				<td><input type="button" value="Save Contact" name="submit" id="submit" value="Submit" ng-click = "saveContact($event);"></td>
 
 			</tr>
 
@@ -133,18 +133,18 @@
 <table ng-show="contactList.length > 0">
     <thead>
         <tr>
-            <th style="text-align: center;">Contact Type {{contactList.length}}</th>
+            <th style="text-align: center;">Contact Type</th>
             <th style="text-align: center;">Company Name</th>
             <th style="text-align: center;">City</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="contact in contactList | orderBy:predicate track by $index">
+        <tr ng-repeat="contact in contactList track by $index" >
             <td style="text-align: center;">Type:{{contact.contactType }}&nbsp;</td>
             <td>Company:&nbsp;{{contact.companyName}}</td>
             <td>City:&nbsp;{{contact.city}}</td>
-            <td><input type="button" value="Edit Contact" name="submit" id="submit" value="Submit" ng-click="getContact('{{contact.id}}');"></td>
+            <td><a href="#" ng-click="getContact()" >Edit</a></td>
 
         </tr>
     </tbody>

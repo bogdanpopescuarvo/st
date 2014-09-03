@@ -64,7 +64,7 @@
 </head>
 
 <body ng-app="contactusDisplayApp" >
-<div ng-controller="contactUsDisplayController">
+<div ng-controller="contactusDisplayControllers">
 	<span class="page-title">Contact Us</span>
 	</br></br>
 	 <app-map style="height:400px;margin:12px;box-shadow:0 3px 25px black;"
