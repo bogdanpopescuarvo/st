@@ -2,6 +2,9 @@
 <%@ page import="org.apache.sling.commons.json.io.*,com.st.olm.cq.api.contactus.*" %><%
     STContact contact = new STContact();
 
+			if(request.getParameter("id")!=null && !request.getParameter("id").equals("")){
+				contact.setId(Long.valueOf(request.getParameter("id")));
+			}
 			contact.setCompanyName(request.getParameter("companyName"));
 			contact.setCity(request.getParameter("city"));
 			contact.setState(request.getParameter("state"));

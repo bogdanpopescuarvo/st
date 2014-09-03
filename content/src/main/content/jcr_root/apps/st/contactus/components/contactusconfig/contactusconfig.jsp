@@ -14,7 +14,7 @@
 	<h1>ST Contact Save</h1>
 
 	<form method="#">
-		<input type="hidden" id="id" name="id"/>
+		<input type="hidden" id="id" name="id" ng-model="id" />
 		<table border="1" align="left">
 			<tr>
 				<td><label for="contactType">Contact Type </label></td>

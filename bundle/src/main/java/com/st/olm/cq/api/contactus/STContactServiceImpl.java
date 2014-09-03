@@ -26,7 +26,6 @@ import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 //This is a component so it can provide or consume services
 @Component
@@ -65,20 +64,35 @@ public class STContactServiceImpl implements STContactService {
 			// Determine if the content/contact node exists
 			Node contactRoot = null;
 			int contactRec = doesContactExist(content);
-
+			int contactId = 0;
+			STContact existingContact = null;
 			// -1 means that content/contact does not exist
-			if (contactRec == -1)
-				// content/contact does not exist -- create it
-				contactRoot = content.addNode("contact", "nt:unstructured");
-			else
+			if (contact.getId() == null) {
+
+				if (contactRec == -1) {
+					// content/contact does not exist -- create it
+					contactRoot = content.addNode("contact", "nt:unstructured");
+				} else {
+					// content/contact does exist -- retrieve it
+					contactRoot = content.getNode("contact");
+				}
+				contactId = contactRec + 1; // assign a new id to the contact
+			} else {
+				contactId = contact.getId().intValue();
 				// content/contact does exist -- retrieve it
 				contactRoot = content.getNode("contact");
+				existingContact = getContactById("" + contactId, session);
+			}
 
-			int contactId = contactRec + 1; // assign a new id to the contact
-											// node
+			// node
 
 			// Store content from the client JSP in the JCR
-			Node contactNode = contactRoot.addNode("contact" + contact.getContactName() + contactId, "nt:unstructured");
+			Node contactNode = null;
+			if (existingContact != null) {
+				contactNode = contactRoot.getNode("contact" + contactId);
+			} else {
+				contactNode = contactRoot.addNode("contact" + contactId, "nt:unstructured");
+			}
 
 			// make sure name of node is unique
 			contactNode.setProperty("id", contactId);
@@ -180,17 +194,16 @@ public class STContactServiceImpl implements STContactService {
 					contact.setCoverage(node.getProperty("coverage").getString());
 				if (node.hasProperty("contactName"))
 					contact.setContactName(node.getProperty("contactName").getString());
-				
+
 				if (node.hasProperty("description"))
-				contact.setDescription(node.getProperty("description").getString());
-				
+					contact.setDescription(node.getProperty("description").getString());
+
 				if (node.hasProperty("imageUrl"))
-				contact.setImageUrl(node.getProperty("imageUrl").getString());
+					contact.setImageUrl(node.getProperty("imageUrl").getString());
 				if (node.hasProperty("imageAlt"))
-				contact.setImageAlt(node.getProperty("imageAlt").getString());
+					contact.setImageAlt(node.getProperty("imageAlt").getString());
 				if (node.hasProperty("contactType"))
-				contact.setContactType(node.getProperty("contactType").getString());
-				
+					contact.setContactType(node.getProperty("contactType").getString());
 
 				// Push contact to the list
 				contactList.add(contact);
@@ -206,10 +219,9 @@ public class STContactServiceImpl implements STContactService {
 		return null;
 	}
 
-
 	@Override
 	public JsonElement getContactDataForDisplay(String filter) {
-		
+
 		List<STContactDisplay> displayableContacts = new ArrayList<STContactDisplay>();
 		STContactDisplay contact = null;
 		List<STContact> jcrContacts = getContactData(filter);
@@ -227,7 +239,7 @@ public class STContactServiceImpl implements STContactService {
 		}
 		return new Gson().toJsonTree(displayableContacts);
 	}
-	
+
 	/*
 	 * Determines if the content/contact node exists This method returns these
 	 * values: -1 - if contact does not exist 0 - if content/contact node
@@ -266,11 +278,27 @@ public class STContactServiceImpl implements STContactService {
 	@Override
 	public JsonElement getContact(String id) {
 		try {
+			// Invoke the adaptTo method to create a Session
+			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
+			session = resourceResolver.adaptTo(Session.class);
+			return new Gson().toJsonTree(getContactById(id, session));
+
+		} catch (Exception e) {
+			log.error("RepositoryException: " + e);
+			return new Gson().toJsonTree("error");
+		} finally {
+			// Log out
+			session.logout();
+		}
+	}
+
+	@Override
+	public STContact getContactById(String id, Session session) {
+		try {
 
 			// Invoke the adaptTo method to create a Session
 			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
 			session = resourceResolver.adaptTo(Session.class);
-
 
 			// create query description as hash map (simplest way, same as form
 			// post)
@@ -281,24 +309,21 @@ public class STContactServiceImpl implements STContactService {
 
 			map.put("path", "/content/contact");
 			map.put("type", "nt:unstructured");
-			map.put("property","id");
-			map.put("property.value",id);
+			map.put("property", "id");
+			map.put("property.value", id);
 			// can be done in map or with Query methods
 			map.put("p.offset", "0"); // same as query.setStart(0) below
 			map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
 
 			Query query = builder.createQuery(PredicateGroup.create(map), session);
 
-
 			SearchResult result = query.getResult();
-
 
 			// Iterate over the nodes in the results ...
 			STContact contact = new STContact();
 			for (Hit hit : result.getHits()) {
 
 				// For each node-- create a contacts instance
-				
 
 				javax.jcr.Node node = hit.getNode();
 
@@ -320,27 +345,25 @@ public class STContactServiceImpl implements STContactService {
 					contact.setCoverage(node.getProperty("coverage").getString());
 				if (node.hasProperty("contactName"))
 					contact.setContactName(node.getProperty("contactName").getString());
-				
+
 				if (node.hasProperty("description"))
-				contact.setDescription(node.getProperty("description").getString());
-				
+					contact.setDescription(node.getProperty("description").getString());
+
 				if (node.hasProperty("imageUrl"))
-				contact.setImageUrl(node.getProperty("imageUrl").getString());
+					contact.setImageUrl(node.getProperty("imageUrl").getString());
 				if (node.hasProperty("imageAlt"))
-				contact.setImageAlt(node.getProperty("imageAlt").getString());
+					contact.setImageAlt(node.getProperty("imageAlt").getString());
 				if (node.hasProperty("contactType"))
-				contact.setContactType(node.getProperty("contactType").getString());
+					contact.setContactType(node.getProperty("contactType").getString());
 
 				break;
 			}
 
-			// Log out
-			session.logout();
-			return new Gson().toJsonTree(contact);
+			return contact;
 
 		} catch (Exception e) {
 			log.error("RepositoryException: " + e);
-			return new Gson().toJsonTree("error");
+			return null;
 		}
 	}
 

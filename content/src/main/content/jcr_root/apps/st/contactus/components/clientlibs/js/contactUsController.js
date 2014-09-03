@@ -31,6 +31,22 @@ App.controller('contactUsController', function($scope,$http, $window) {
         		}).success(function(data){
         			$scope.contact = JSON.parse(data.contact);
         			$scope.contactType= $scope.contact.contactType;
+        			$scope.id=$scope.contact.id; 
+        			$scope.companyName=$scope.contact.companyName;
+        			$scope.city=$scope.contact.city;
+        			$scope.state=$scope.contact.state;
+        			$scope.address=$scope.contact.address;
+        			$scope.googleLatitude=$scope.contact.googleLatitude;
+        			$scope.googleLongitude=$scope.contact.googleLongitude;
+        			$scope.addressType=$scope.contact.addressType;
+        			$scope.phone=$scope.contact.phone;
+        			$scope.fax=$scope.contact.fax;
+        			$scope.email=$scope.contact.email;
+        			$scope.coverage=$scope.contact.coverage;
+        			$scope.contactName=$scope.contact.contactName;
+        			$scope.description=$scope.contact.description;
+        			$scope.imageUrl=$scope.contact.imageUrl;
+        			$scope.imageAlt=$scope.contact.imageAlt;
         }).error(function(data,status){
         });
 	}

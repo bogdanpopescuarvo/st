@@ -2,6 +2,8 @@ package com.st.olm.cq.api.contactus;
 
 import java.util.List;
 
+import javax.jcr.Session;
+
 import com.google.gson.JsonElement;
 
 public interface STContactService {
@@ -30,6 +32,8 @@ public interface STContactService {
 	 * current contacts
 	 */
 	public JsonElement getContact(String id);
+	
+	public STContact getContactById(String id,Session session);
 
 	public JsonElement getContactDataForDisplay(String filter);
 
