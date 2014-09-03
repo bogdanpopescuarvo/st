@@ -144,7 +144,7 @@
             <td style="text-align: center;">Type:{{contact.contactType }}&nbsp;</td>
             <td>Company:&nbsp;{{contact.companyName}}</td>
             <td>City:&nbsp;{{contact.city}}</td>
-            <td><a href="#" ng-click="getContact()" >Edit</a></td>
+            <td><a href="#" ng-click="getContact(contact.id)" >Edit</a></td>
 
         </tr>
     </tbody>

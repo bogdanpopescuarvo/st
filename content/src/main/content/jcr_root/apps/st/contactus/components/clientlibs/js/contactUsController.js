@@ -5,6 +5,7 @@ App.controller('contactUsController', function($scope,$http, $window) {
 	$scope.id=""; 
 	$scope.companyName="";
 	$scope.contactType="";
+	$scope.contact="";
 	$scope.city="";
 	$scope.state="";
 	$scope.address="";
@@ -20,8 +21,18 @@ App.controller('contactUsController', function($scope,$http, $window) {
 	$scope.imageUrl="";
 	$scope.imageAlt="";
 
-	$scope.getContact = function() {
-		alert("gigel");
+	$scope.getContact = function(id) {
+		 var url = location.pathname.replace(".html", "/_jcr_content.edit.json") ;
+		$http.post(url,
+        		{'id': id},
+        		{
+        			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+        			transformRequest: transform
+        		}).success(function(data){
+        			$scope.contact = JSON.parse(data.contact);
+        			$scope.contactType= $scope.contact.contactType;
+        }).error(function(data,status){
+        });
 	}
 	$scope.saveContact = function() {
 		 var url = location.pathname.replace(".html", "/_jcr_content.persist.json") ;
@@ -51,7 +62,6 @@ App.controller('contactUsController', function($scope,$http, $window) {
         			transformRequest: transform
         		}).success(function(data){
            		 $scope.contactList = angular.fromJson(data.contacts);
-                 $event.preventDefault();
         }).error(function(data,status){
         });
 
