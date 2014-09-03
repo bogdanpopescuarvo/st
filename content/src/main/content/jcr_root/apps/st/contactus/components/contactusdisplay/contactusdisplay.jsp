@@ -6,10 +6,17 @@
 <head>
  <script src="https://maps.googleapis.com/maps/api/js"></script>
     <style>
-      #map_canvas {
-        width: 100%;
-        height: 500;
-      }
+        #map {
+            height:500px;
+            width:100%;
+        }
+        .infoWindowContent {
+            font-size:  14px !important;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            height:40px;
+            width:250px;
+        }
     </style>	
 	<style>
 		.section-header {
@@ -64,14 +71,10 @@
 </head>
 
 <body ng-app="contactusDisplayApp" >
-<div ng-controller="contactusDisplayControllers">
+<div ng-controller="ContactusDisplayCtrl">
 	<span class="page-title">Contact Us</span>
 	</br></br>
-	 <app-map style="height:400px;margin:12px;box-shadow:0 3px 25px black;"
-        center="loc"
-        markers="locationMarkers"
-    > 
-    </app-map>
+ 	<div id="map"></div>   
 	</br>
 	<div class="section-header">&nbsp;&nbsp; Refine your search</div>
 	</br></br>
@@ -94,16 +97,13 @@
 					</tr>
 					<tr>
 						<td>
-							<select ng-model="contactType">
+							<select ng-model="contactType" ng-change="loadReport()">
 	      						<option value="0">Distributors</option>
 	      						<option value="1">Headquarters</option>
 	      						<option value="2">Manufacturing and Design Centers</option>
 	      						<option value="3">Sales offices & Representatives</option>
 	      						<option value="4">Warehouses</option>
 	   						</select>
-							<!-- select ng-model="contactType" ng-options="type.name for type in contactTypeList" ng-change="loadReportByContactType()">
-	      						<option value="">-- Choose contact type --</option>
-	   						</select -->
 						</td>						
 					</tr>					
 				</table>				
@@ -112,18 +112,20 @@
 	</table>
 	</br></br>
 	<div class="section-header">&nbsp;&nbsp; Contact Search Results</div>
-	<table cellpadding="10" cellspacing="0" width="70%" ng-show="locationMarkers">	
-		<tr ng-repeat="location in locationMarkers">
-			<td width = "33%">
-				{{ location.name }}<br>
+
+<table cellpadding="10" cellspacing="0" width="70%" ng-show="addressSets.length > 0">	
+
+        <tr ng-repeat="group in addressSets">
+        	<td ng-repeat="location in group" width="33%">
+            	{{ location.name }}<br>
 				{{ location.address }}<br>
-				{{ location.zip }}<br>
 				{{ location.city }}<br>
-				{{ location.phone }}<br>
-				{{ location.fax }}<br>
-				
-			</td>
-		</tr>
+				{{ location.description }}<br>
+                <a href="#" ng-click="centerMap(location.lat, location.long)">View Map</a>
+        	</td>
+    	</tr>
+
 	</table>	
+
 </body>
 </html>

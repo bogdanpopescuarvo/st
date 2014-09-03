@@ -208,7 +208,7 @@ public class STContactServiceImpl implements STContactService {
 
 
 	@Override
-	public List<STContactDisplay> getContactDataForDisplay(String filter) {
+	public JsonElement getContactDataForDisplay(String filter) {
 		
 		List<STContactDisplay> displayableContacts = new ArrayList<STContactDisplay>();
 		STContactDisplay contact = null;
@@ -225,7 +225,7 @@ public class STContactServiceImpl implements STContactService {
 			contact.setZip(stContact.getState());
 			displayableContacts.add(contact);
 		}
-		return displayableContacts;
+		return new Gson().toJsonTree(displayableContacts);
 	}
 	
 	/*
