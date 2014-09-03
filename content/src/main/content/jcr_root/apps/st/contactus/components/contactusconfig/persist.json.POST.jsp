@@ -1,6 +1,6 @@
 <%@include file="/libs/foundation/global.jsp"%>
 <%@ page import="org.apache.sling.commons.json.io.*,com.st.olm.cq.api.contactus.*" %><%
-    com.st.olm.cq.api.contactus.STContact contact = new com.st.olm.cq.api.contactus.STContact();
+    STContact contact = new STContact();
 
 			contact.setCompanyName(request.getParameter("companyName"));
 			contact.setCity(request.getParameter("city"));

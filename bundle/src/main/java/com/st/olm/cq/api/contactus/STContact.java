@@ -19,6 +19,16 @@ public class STContact {
 	private String imageUrl;
 	private String contactType;
 	private String imageAlt;
+	private Long id;
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getContactType() {
 		return contactType;
