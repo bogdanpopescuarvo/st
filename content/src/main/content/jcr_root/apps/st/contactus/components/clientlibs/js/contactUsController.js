@@ -1,4 +1,5 @@
 var App = angular.module('stContactUsApp',[]);
+
 App.controller('contactUsController', function($scope,$http, $window) {
 	$scope.form={};
 	$scope.id=""; 
@@ -19,9 +20,11 @@ App.controller('contactUsController', function($scope,$http, $window) {
 	$scope.imageUrl="";
 	$scope.imageAlt="";
 
+	$scope.getContact = function() {
+		alert("gigel");
+	}
 	$scope.saveContact = function() {
 		 var url = location.pathname.replace(".html", "/_jcr_content.persist.json") ;
-	$scope.id = 1;
 			$http.post(url,
         		{'id': $scope.id, 
 				'companyName': $scope.companyName,
@@ -41,33 +44,18 @@ App.controller('contactUsController', function($scope,$http, $window) {
 				'imageUrl': $scope.imageUrl,
 				'imageAlt': $scope.imageAlt
         		
-        		
+
         		},
         		{
         			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
         			transformRequest: transform
         		}).success(function(data){
            		 $scope.contactList = angular.fromJson(data.contacts);
-        }).error(function(data,status){
-        });
-
-	};
-     	$scope.getContact = function(id) {
-     		alert("intra");
-		 var url = location.pathname.replace(".html", "/_jcr_content.query.json") ;
-			$http.get(url,
-        		{'id': id},
-        		{
-        			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-        			transformRequest: transform
-        		}).success(function(data){
-           		 $scope.contact = angular.fromJson(data.contact);
+                 $event.preventDefault();
         }).error(function(data,status){
         });
 
 	}
-
-  
 	
 });
 
