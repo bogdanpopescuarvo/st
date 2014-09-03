@@ -70,8 +70,8 @@
 <title>ST Contact Us</title>
 </head>
 
-<body ng-app="contactusDisplayApp" >
-<div ng-controller="ContactusDisplayCtrl">
+<body ng-app="contactusDisplayApp" ng-controller="ContactusDisplayCtrl">
+<div>
 	<span class="page-title">Contact Us</span>
 	</br></br>
  	<div id="map"></div>   
@@ -86,7 +86,11 @@
 						<td>By City, State or Zip</td>						
 					</tr>
 					<tr>
-						<td><input type="text" ng-model="location"> &nbsp;&nbsp;&nbsp;&nbsp;<a href = ""><span class="button">Refine</span></a></td>						
+						<td><input type="text" ng-model="location"> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href = href="#" ng-click="loadReportByLocation()">
+                            	<span class="button"  ng-click="loadReportByLocation()">Refine</span>
+                            </a>
+                        </td>						
 					</tr>					
 				</table>				
 			</td>
@@ -97,12 +101,14 @@
 					</tr>
 					<tr>
 						<td>
-							<select ng-model="contactType" ng-change="loadReport()">
-	      						<option value="0">Distributors</option>
-	      						<option value="1">Headquarters</option>
-	      						<option value="2">Manufacturing and Design Centers</option>
-	      						<option value="3">Sales offices & Representatives</option>
-	      						<option value="4">Warehouses</option>
+							<select ng-model="contactType" ng-change="loadReportByType()">
+	      						<option value="headquarter">Headquarter</option>
+								<option value="designConsultants">Design Consultants</option>
+								<option value="distribution">Distribution</option>
+								<option value="manufacturingAndDesignCenters">Manufacturing and Design Centers</option>
+								<option value="salesOfficesAndRepresentatives">Sales offices and Representatives</option>
+								<option value="thirdParties">Third Parties</option>
+								<option value="Warehouses">Warehouses</option>
 	   						</select>
 						</td>						
 					</tr>					
@@ -121,7 +127,7 @@
 				{{ location.address }}<br>
 				{{ location.city }}<br>
 				{{ location.description }}<br>
-                <a href="#" ng-click="centerMap(location.lat, location.long)">View Map</a>
+                <a href="#" ng-click="centerMap(location.lat, location.lon)">View Map</a>
         	</td>
     	</tr>
 

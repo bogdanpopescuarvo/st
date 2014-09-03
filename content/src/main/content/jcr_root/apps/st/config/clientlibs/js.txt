@@ -1,3 +1,4 @@
 #base=js
 angular.js
 angular-route.min.js
+angular-resource.js

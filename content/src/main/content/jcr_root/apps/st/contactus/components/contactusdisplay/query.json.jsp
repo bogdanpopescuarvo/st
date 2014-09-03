@@ -1,16 +1,17 @@
 <%@include file="/libs/foundation/global.jsp"%>
-<%@ page import="org.apache.sling.commons.json.io.*,com.adobe.cq.*,com.st.olm.cq.api.contactus.*,org.w3c.dom.*" %><%
-String filter = request.getParameter("filter");
+<%@ page import="org.apache.sling.commons.json.io.*,com.st.olm.cq.api.contactus.*,com.google.gson.*" %>
+<%
+System.out.println("**************************************************");
+STContactService cs = sling.getService(STContactService.class);
+String contactRes = cs.getContactDataForDisplay(request.getParameter("contactType"));
 
-STContact cs = sling.getService(STContact.class);
-  
-String XML = cs.getCustomerData(filter) ;
-   
+response.getWriter().write(contactRes);
+
 //Send the data back to the client
-JSONWriter writer = new JSONWriter(response.getWriter());
-writer.object();
-writer.key("xml");
-writer.value(XML);
+//JSONWriter writer = new JSONWriter(response.getWriter());
+//writer.object();
+//writer.key("displaycontacts");
+//writer.value(contactRes);
 
-writer.endObject();
+//writer.endObject();
 %>

@@ -153,6 +153,15 @@ public class STContactServiceImpl implements STContactService {
 			map.put("p.offset", "0"); // same as query.setStart(0) below
 			map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
 
+			
+			if (filter != null && !filter.equals("")) {				
+				String[] params = filter.split(":");
+				if (params.length > 0) {
+					map.put("property",params[0]);
+					map.put("property.value",params[1]);
+				}
+			}	
+			
 			Query query = builder.createQuery(PredicateGroup.create(map), session);
 
 			query.setStart(0);
@@ -220,8 +229,7 @@ public class STContactServiceImpl implements STContactService {
 	}
 
 	@Override
-	public JsonElement getContactDataForDisplay(String filter) {
-
+	public String getContactDataForDisplay(String filter) {
 		List<STContactDisplay> displayableContacts = new ArrayList<STContactDisplay>();
 		STContactDisplay contact = null;
 		List<STContact> jcrContacts = getContactData(filter);
@@ -237,7 +245,7 @@ public class STContactServiceImpl implements STContactService {
 			contact.setZip(stContact.getState());
 			displayableContacts.add(contact);
 		}
-		return new Gson().toJsonTree(displayableContacts);
+		return new Gson().toJson(displayableContacts);
 	}
 
 	/*

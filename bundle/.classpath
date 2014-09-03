@@ -36,6 +36,5 @@
   <classpathentry kind="var" path="M2_REPO/com/day/cq/cq-commons/5.5.0/cq-commons-5.5.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-email/1.2/commons-email-1.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/day/cq/cq-search/5.5.4/cq-search-5.5.4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/day/cq/cq-statistics/5.4.0/cq-statistics-5.4.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.3/gson-2.3.jar"/>
 </classpath>

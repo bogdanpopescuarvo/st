@@ -3,6 +3,7 @@
 /* App Module */
 
 var contactusDisplayApp = angular.module('contactusDisplayApp', [
-  'contactusDisplayControllers',
+  'contactusDisplayController',
   'contactusDisplayServices'
 ]);
+

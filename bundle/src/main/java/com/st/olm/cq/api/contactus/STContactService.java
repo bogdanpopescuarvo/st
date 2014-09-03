@@ -35,6 +35,6 @@ public interface STContactService {
 	
 	public STContact getContactById(String id,Session session);
 
-	public JsonElement getContactDataForDisplay(String filter);
+	public String getContactDataForDisplay(String filter);
 
 }
