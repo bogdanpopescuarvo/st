@@ -18,4 +18,6 @@ public interface STContactService {
      *Past Contact - retrieves old contacts no longer current contacts
      */
     public List<STContact> getContactData(String filter); 
+    
+    public List<STContactDisplay> getContactDataForDisplay(String filter);
 }

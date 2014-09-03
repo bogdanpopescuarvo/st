@@ -10,20 +10,7 @@
         width: 100%;
         height: 500;
       }
-    </style>
-	<script>
-      function initialize() {
-        var map_canvas = document.getElementById('map_canvas');
-        var map_options = {
-
-          center: new google.maps.LatLng(37.501777, 15.074518),
-          zoom: 3,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var map = new google.maps.Map(map_canvas, map_options)
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>	
+    </style>	
 	<style>
 		.section-header {
 			background-color: #002052;
@@ -80,7 +67,11 @@
 <div ng-controller="contactUsDisplayController">
 	<span class="page-title">Contact Us</span>
 	</br></br>
-	<div id="map_canvas"></div>
+	 <app-map style="height:400px;margin:12px;box-shadow:0 3px 25px black;"
+        center="loc"
+        markers="locationMarkers"
+    > 
+    </app-map>
 	</br>
 	<div class="section-header">&nbsp;&nbsp; Refine your search</div>
 	</br></br>
@@ -92,7 +83,7 @@
 						<td>By City, State or Zip</td>						
 					</tr>
 					<tr>
-						<td><input type="text"> &nbsp;&nbsp;&nbsp;&nbsp;<a href = ""><span class="button">Refine</span></a></td>						
+						<td><input type="text" ng-model="location"> &nbsp;&nbsp;&nbsp;&nbsp;<a href = ""><span class="button">Refine</span></a></td>						
 					</tr>					
 				</table>				
 			</td>
@@ -103,9 +94,16 @@
 					</tr>
 					<tr>
 						<td>
-							<select ng-model="contactType" ng-options="type.name for type in contactTypeList" ng-change="loadReportByContactType()">
-	      						<option value="">-- Choose contact type --</option>
+							<select ng-model="contactType">
+	      						<option value="0">Distributors</option>
+	      						<option value="1">Headquarters</option>
+	      						<option value="2">Manufacturing and Design Centers</option>
+	      						<option value="3">Sales offices & Representatives</option>
+	      						<option value="4">Warehouses</option>
 	   						</select>
+							<!-- select ng-model="contactType" ng-options="type.name for type in contactTypeList" ng-change="loadReportByContactType()">
+	      						<option value="">-- Choose contact type --</option>
+	   						</select -->
 						</td>						
 					</tr>					
 				</table>				
@@ -114,11 +112,17 @@
 	</table>
 	</br></br>
 	<div class="section-header">&nbsp;&nbsp; Contact Search Results</div>
-	<table cellpadding="10" cellspacing="0" width="70%" ng-show="allContactsList">
-		<tr>
-			<td width = "33%"></td>
-			<td width = "33%"></td>
-			<td width = "34%"></td>						
+	<table cellpadding="10" cellspacing="0" width="70%" ng-show="locationMarkers">	
+		<tr ng-repeat="location in locationMarkers">
+			<td width = "33%">
+				{{ location.name }}<br>
+				{{ location.address }}<br>
+				{{ location.zip }}<br>
+				{{ location.city }}<br>
+				{{ location.phone }}<br>
+				{{ location.fax }}<br>
+				
+			</td>
 		</tr>
 	</table>	
 </body>
