@@ -18,6 +18,7 @@ public class STContactDisplay {
 	private String city;
 	private String phone;
 	private String fax;
+	private String state;
 	/**
 	 * @return the name
 	 */
@@ -113,6 +114,18 @@ public class STContactDisplay {
 	 */
 	public void setCity(String city) {
 		this.city = city;
+	}
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
 	}
 		
 }
