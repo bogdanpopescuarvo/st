@@ -50,6 +50,19 @@ App.controller('contactUsController', function($scope,$http, $window) {
         }).error(function(data,status){
         });
 	}
+	$scope.deleteContact = function(id) {
+		 var url = location.pathname.replace(".html", "/_jcr_content.delete.json") ;
+		$http.post(url,
+       		{'id': id},
+       		{
+       			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+       			transformRequest: transform
+       		}).success(function(data){
+       		 $scope.contactList = angular.fromJson(data.contacts);
+       }).error(function(data,status){
+       });
+	}
+	
 	$scope.saveContact = function() {
 		 var url = location.pathname.replace(".html", "/_jcr_content.persist.json") ;
 			$http.post(url,

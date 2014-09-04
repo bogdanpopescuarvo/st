@@ -320,6 +320,7 @@ table tr:hover td{
             <td>Company:&nbsp;{{contact.companyName}}</td>
             <td>City:&nbsp;{{contact.city}}</td>
             <td><a href="#" ng-click="getContact(contact.id)" >Edit</a></td>
+            <td><a href="#" ng-click="deleteContact(contact.id)" >Delete</a></td>
 
         </tr>
     </tbody>
