@@ -50,7 +50,7 @@ public class STContactServiceImpl implements STContactService {
 		int num = 0;
 		try {
 
-			// Invoke the adaptTo method to create a Session used to create a
+			// Invoke the adaptTo method to create a Session used to create a123
 			// QueryManager
 			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
 			session = resourceResolver.adaptTo(Session.class);
