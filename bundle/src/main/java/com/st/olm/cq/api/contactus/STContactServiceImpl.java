@@ -375,4 +375,36 @@ public class STContactServiceImpl implements STContactService {
 		}
 	}
 
+	@Override
+	public JsonElement deleteContact(String id) {
+		try {
+			// Invoke the adaptTo method to create a Session
+			ResourceResolver resourceResolver = resolverFactory.getAdministrativeResourceResolver(null);
+			session = resourceResolver.adaptTo(Session.class);
+			STContact contact = getContactById(id, session);
+			if(contact!=null){
+				Node root = session.getRootNode();
+
+				// Get the content node in the JCR
+				Node content = root.getNode("content");
+
+				// Determine if the content/contact node exists
+				Node contactRoot = // content/contact does exist -- retrieve it
+				contactRoot = content.getNode("contact");
+				Node contactNode = contactRoot.getNode("contact"+contact.getId());
+				contactNode.remove();
+				session.save();
+			}
+			return new Gson().toJsonTree(getContactData(null));
+
+		} catch (Exception e) {
+			log.error("RepositoryException: " + e);
+			return new Gson().toJsonTree("error");
+		} finally {
+			// Log out
+			session.logout();
+		}
+
+	}
+
 }

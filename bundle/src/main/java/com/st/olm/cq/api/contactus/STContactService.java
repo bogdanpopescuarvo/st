@@ -33,6 +33,8 @@ public interface STContactService {
 	 */
 	public JsonElement getContact(String id);
 	
+	public JsonElement deleteContact(String id);
+	
 	public STContact getContactById(String id,Session session);
 
 	public String getContactDataForDisplay(String filter);
