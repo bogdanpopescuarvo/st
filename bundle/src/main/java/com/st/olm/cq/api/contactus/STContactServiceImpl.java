@@ -235,14 +235,15 @@ public class STContactServiceImpl implements STContactService {
 		List<STContact> jcrContacts = getContactData(filter);
 		for (STContact stContact : jcrContacts) {
 			contact = new STContactDisplay();
-			contact.setName(stContact.getContactName());
+			contact.setName(stContact.getCompanyName());
 			contact.setAddress(stContact.getAddress());
 			contact.setCity(stContact.getCity());
 			contact.setFax(stContact.getFax());
 			contact.setLat(stContact.getGoogleLatitude());
 			contact.setLon(stContact.getGoogleLongitude());
 			contact.setPhone(stContact.getPhone());
-			contact.setZip(stContact.getState());
+			contact.setFax(stContact.getFax());
+			contact.setZip(stContact.getState());			
 			displayableContacts.add(contact);
 		}
 		return new Gson().toJson(displayableContacts);
