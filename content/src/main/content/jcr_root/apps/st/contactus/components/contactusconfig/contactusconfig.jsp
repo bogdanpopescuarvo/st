@@ -238,7 +238,7 @@ table tr:hover td{
 				</td>
 			</tr>
 			<tr>
-				<td><label for="contactType">Contact Type </label></td>
+				<td><label for="addressType">Address Type </label></td>
 				<td><select id="addressType" name="addressType" ng-model="addressType">
 						<option value="headquarter">Headquarter</option>
 						<option value="distribution">Distribution</option>
