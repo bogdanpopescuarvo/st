@@ -1,6 +1,6 @@
 <%@include file="/libs/foundation/global.jsp"%>
 <cq:includeClientLib categories="angularJSClient" />
-<cq:includeClientLib categories="stJSLibrary" />
+<cq:includeClientLib categories="uploadJSLibrary" />
 
 <html ng-app="stUploadFileApp">
 <head>
@@ -34,7 +34,7 @@
 				</tr>
                 <tr>
 					<td></td>
-                    <td><input type="button" ng-click="upload" value="Save"/></td>
+                    <td><input type="button" ng-click="upload()" value="Save"/></td>
 					<td></td>
 					<td></td>
 				</tr>

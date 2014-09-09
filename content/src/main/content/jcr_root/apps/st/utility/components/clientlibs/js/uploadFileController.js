@@ -5,10 +5,10 @@ App.controller('stUploadFileController', function($scope,$http, $window) {
 
 
 	$scope.upload = function() {
-		 var url = location.pathname.replace(".html", "/_jcr_content.upload.json") ;
+        alert("DA");
          var fd = new FormData();
-        fd.append('file', file);
-			$http.post(url,fd,
+        	fd.append('file', file);
+			$http.post('/st/updamfile',fd,
         		{
         			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
         			transformRequest: transform
