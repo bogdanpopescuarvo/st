@@ -70,92 +70,68 @@
 <title>ST Contact Us</title>
 </head>
 
-<body ng-app="contactusDisplayApp" ng-controller="ContactusDisplayCtrl" bgcolor="white">
+<body ng-app="contactusDisplayApp" ng-controller="ContactusDisplayCtrl">
 <div>
-	<table cellpadding="0" cellspacing="0" width="95%" align="center">
-		<tr>
-            <td>
-                <span class="page-title">Contact Us</span>
-                </br></br>
-            
-                <div id="map"></div>   
-                </br>
-            </td>
-        </tr>    
-
-	</table>
-	<table cellpadding="0" cellspacing="0" width="95%" align="center">
-		<tr>
-            <td>
-                <div class="section-header">&nbsp;&nbsp; Refine your search</div>
-				</br></br>
-                <table cellpadding="10" cellspacing="0" width="70%">
-                    <tr>
-                        <td width = "40%">
-                            <table cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td>By Contact Type</td>						
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select ng-model="contactType" ng-change="loadReportByType()">
-                                            <option value="headquarter">Headquarter</option>
-                                            <option value="designConsultants">Design Consultants</option>
-                                            <option value="distribution">Distribution</option>
-                                            <option value="manufacturingAndDesignCenters">Manufacturing and Design Centers</option>
-                                            <option value="salesOfficesAndRepresentatives">Sales offices and Representatives</option>
-                                            <option value="thirdParties">Third Parties</option>
-                                            <option value="Warehouses">Warehouses</option>
-                                        </select>
-                                    </td>						
-                                </tr>					
-                            </table>				
-                        </td>
-                        <td width = "60%">
-                            <table cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td>By City, State or Zip</td>						
-                                </tr>
-                                <tr>
-                                    <td><input type="text" ng-model="location"> &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href = href="#" ng-click="loadReportByLocation()">
-                                            <span class="button"  ng-click="loadReportByLocation()">Refine</span>
-                                        </a>
-                                    </td>						
-                                </tr>					
-                            </table>				
-                        </td>                        
-                    </tr>
-                </table>
-            </td>
-        </tr>    
-
-	</table>                 
+	<span class="page-title">Contact Us</span>
 	</br></br>
-	<table cellpadding="0" cellspacing="0" width="95%" align="center">
+ 	<div id="map"></div>   
+	</br>
+	<div class="section-header">&nbsp;&nbsp; Refine your search</div>
+	</br></br>
+	<table cellpadding="10" cellspacing="0" width="70%">
 		<tr>
-            <td>
-				<div class="section-header">&nbsp;&nbsp; Contact Search Results</div>
+			<td width = "40%">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<td>By City, State or Zip</td>						
+					</tr>
+					<tr>
+						<td><input type="text" ng-model="location"> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href = href="#" ng-click="loadReportByLocation()">
+                            	<span class="button"  ng-click="loadReportByLocation()">Refine</span>
+                            </a>
+                        </td>						
+					</tr>					
+				</table>				
+			</td>
+			<td width = "60%">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<td>By Contact Type</td>						
+					</tr>
+					<tr>
+						<td>
+							<select ng-model="contactType" ng-change="loadReportByType()">
+	      						<option value="headquarter">Headquarter</option>
+								<option value="designConsultants">Design Consultants</option>
+								<option value="distribution">Distribution</option>
+								<option value="manufacturingAndDesignCenters">Manufacturing and Design Centers</option>
+								<option value="salesOfficesAndRepresentatives">Sales offices and Representatives</option>
+								<option value="thirdParties">Third Parties</option>
+								<option value="Warehouses">Warehouses</option>
+	   						</select>
+						</td>						
+					</tr>					
+				</table>				
+			</td>
+		</tr>
+	</table>
+	</br></br>
+	<div class="section-header">&nbsp;&nbsp; Contact Search Results</div>
 
-            	<table cellpadding="10" cellspacing="0" width="1280px" ng-show="addressSets.length > 0">	
-            
-                    <tr ng-repeat="group in addressSets">
-                        <td ng-repeat="location in group" width="1%">
-                            {{ location.name }}<br>
-                            {{ location.address }}<br>
-                            {{ location.city }}<br>
-                            Phone {{ location.phone }}<br>
-                            Fax {{ location.fax }}<br>
-                            <a href="#" ng-click="centerMap(location.lat, location.lon)">View Map</a>
-                        </td>
-                    </tr>
-            
-                </table>	
-            </td>
-        </tr>    
+<table cellpadding="10" cellspacing="0" width="70%" ng-show="addressSets.length > 0">	
 
-	</table>    
+        <tr ng-repeat="group in addressSets">
+        	<td ng-repeat="location in group" width="33%">
+            	{{ location.name }}<br>
+				{{ location.address }}<br>
+				{{ location.city }}<br>
+				{{ location.description }}<br>
+                <a href="#" ng-click="centerMap(location.lat, location.lon)">View Map</a>
+        	</td>
+    	</tr>
 
+	</table>	
 
 </body>
 </html>

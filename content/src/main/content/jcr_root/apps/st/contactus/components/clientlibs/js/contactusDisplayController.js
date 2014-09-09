@@ -79,18 +79,16 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
    			 $scope.markers[i].setMap(null);
   		}
 
-        var createMarker = function (info){ 
-            alert('creating marker with: ' + info.name );
+        var createMarker = function (info){            
             var marker = new google.maps.Marker({
                 map: $scope.map,
                 position: new google.maps.LatLng(info.lat, info.lon),
-                title: info.name,
-                address: info.address
+                title: info.city
             });
             marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
             
             google.maps.event.addListener(marker, 'click', function(){
-                infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.address);
+                infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
                 infoWindow.open($scope.map, marker);
             });
             
