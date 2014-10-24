@@ -19,7 +19,7 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 //This is a component so it can provide or consume services
 @SlingServlet(paths = "/st/updamfile", methods = "POST", metatype = true)
 public class HandleDamFile extends org.apache.sling.api.servlets.SlingAllMethodsServlet {
-	private static final long serialVersionUID = 2598426539166789515L;
+	private static final long serialVersionUID = 1L;
 
 	private Session session;
 

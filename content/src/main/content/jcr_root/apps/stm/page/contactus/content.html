@@ -1,0 +1,29 @@
+<h2>${currentPage.title}</h2>
+
+<div data-sly-test="${wcmmode.edit && !currentPage.listChildren}">
+Message for the author, please define regions below this page.
+</div>
+
+<div>
+Here comes the map...
+</div>
+
+<div>
+Here an overview of all the regions where ST-offices are located.
+</div>
+<h3>Regions</h3>
+<div class="regions" data-sly-list="${currentPage.listChildren}">
+<!--/* every item in data-sly-list can be access via item */-->
+
+	<div class="row ${itemList.odd ? 'odd' : 'even'}">
+		<h4>Region : ${item.title}</h4>
+		<h5 data-sly-test.hasOffices="${item.listChildren}">offices in this region</h5>
+		<h5 data-sly-test="${!hasOffices}">no offices in this region</h5>
+
+		<!--/* with data-sly-test you can show/hide the complete element */-->
+
+		<div class="offices" data-sly-resource="${item.path @ selectors='overview', wcmmode='disabled'}">
+		<!--/* data-sly-resource will include a component, and output the content  */-->
+		</div>
+	</div>
+</div>

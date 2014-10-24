@@ -1,0 +1,19 @@
+Hello : ${currentPage.title}
+
+<div data-sly-test="${wcmmode.edit}">
+Hi mister, can you please make some great content...
+</div>
+
+<div data-sly-resource="${'par' @ resourceType='foundation/components/parsys'}">
+</div>
+
+
+<div data-sly-list="${currentPage.listChildren}">
+    <div data-sly-resource="${ item.path @ selectors='feike', wcmmode='disabled'}"></div>
+</div>
+<div data-sly-test="${!currentPage.listChildren}">
+    Sorry, no subpages
+</div>
+<div data-sly-use.ex1="com.mycompany.myproject.MyComponent">
+${ex1.specialTitle}
+</div>

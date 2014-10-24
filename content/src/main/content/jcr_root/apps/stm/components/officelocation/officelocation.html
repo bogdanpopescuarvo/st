@@ -1,0 +1,9 @@
+This is the office location...
+
+${properties['address']} <br/>
+
+<div data-sly-use.office="com.st.olm.OfficeComponent">
+Lat/Long from Google....<br/>
+${office.coordinates.lat || 'empty'}, ${office.coordinates.lng || 'also empty'}
+${office.HELLO}
+</div>

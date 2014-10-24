@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Office details"
+    xtype="panel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <officeName
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Office-name"
+            name="./officeName"
+            xtype="textfield"/>
+        <contactType
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Contact Type"
+            name="./contacttype"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <salesOfficesAndRepresentatives
+                    jcr:primaryType="nt:unstructured"
+                    value="Sales Offices and Representatives"/>
+                <headquarter
+                    jcr:primaryType="nt:unstructured"
+                    value="Headquarter"/>
+                <designConsultants
+                    jcr:primaryType="nt:unstructured"
+                    value="Design Consultants"/>
+                <distribution
+                    jcr:primaryType="nt:unstructured"
+                    value="Distribution"/>
+                <manufacturingAndDesignCenters
+                    jcr:primaryType="nt:unstructured"
+                    value="Manufacturing and Design Centers"/>
+                <thirdParties
+                    jcr:primaryType="nt:unstructured"
+                    value="Third Parties"/>
+                <warehouses
+                    jcr:primaryType="nt:unstructured"
+                    value="Warehouses"/>
+            </options>
+        </contactType>
+        <addressType
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Address Type"
+            name="./addressType"
+            type="select"
+            xtype="selection">
+            <options jcr:primaryType="cq:WidgetCollection">
+                <salesOfficesAndRepresentatives
+                    jcr:primaryType="nt:unstructured"
+                    value="Sales Offices and Representatives"/>
+                <headquarter
+                    jcr:primaryType="nt:unstructured"
+                    value="Headquarter"/>
+                <distribution
+                    jcr:primaryType="nt:unstructured"
+                    value="Distribution"/>
+                <manufacturingAndDesignCenters
+                    jcr:primaryType="nt:unstructured"
+                    value="Manufacturing and Design Centers"/>
+                <warehouses
+                    jcr:primaryType="nt:unstructured"
+                    value="Warehouses"/>
+            </options>
+        </addressType>
+        <phone
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Phone"
+            name="./phone"
+            xtype="textfield"/>
+        <fax
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Fax"
+            name="./fax"
+            xtype="textfield"/>
+        <email
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Email"
+            name="./email"
+            xtype="textfield"/>
+        <website
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Website"
+            name="./website"
+            xtype="textfield"/>
+        <coverage
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Coverage"
+            name="./coverage"
+            xtype="textfield"/>
+        <description
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Description"
+            name="./description"
+            xtype="richtext"/>
+        <imageAltText
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Image Alternate Text"
+            name="./imageAltText"
+            xtype="textfield"/>
+        <image
+            jcr:primaryType="cq:Widget"
+            cropParameter="./image/imageCrop"
+            ddGroups="[media]"
+            fieldLabel="Image field"
+            fileNameParameter="./image/fileName"
+            fileReferenceParameter="./image/fileReference"
+            height="{Long}200"
+            name="./image/file"
+            rotateParameter="./image/imageRotate"
+            title="Image"
+            width="{Long}200"
+            xtype="html5smartimage"/>
+    </items>
+</jcr:root>

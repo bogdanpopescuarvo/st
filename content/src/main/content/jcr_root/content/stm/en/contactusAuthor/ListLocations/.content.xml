@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2014-10-22T11:20:38.440+03:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/apps/stm/templates/page-default"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="List Locations"
+        sling:resourceType="stm/components/page-default">
+        <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/parsys">
+            <search
+                jcr:created="{Date}2014-10-22T11:16:46.301+03:00"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2014-10-22T11:20:38.437+03:00"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="foundation/components/search"
+                nextText="Next"
+                previousText="Previous"
+                searchButtonText="Search Locations"
+                searchIn="/content/usergenerated/stm/en/contactusAuthor/add-location"/>
+        </content>
+    </jcr:content>
+</jcr:root>
