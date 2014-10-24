@@ -9,4 +9,5 @@
         jcr:title="English"
         sling:resourceType="stm/components/page-default"/>
     <contactusAuthor/>
+    <list-locations/>
 </jcr:root>
