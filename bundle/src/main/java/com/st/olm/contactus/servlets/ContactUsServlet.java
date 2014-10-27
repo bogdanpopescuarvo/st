@@ -31,7 +31,7 @@ import com.google.gson.Gson;
 @SlingServlet(paths = "/bin/servlets/contactus", methods = "POST", metatype = true)
 public class ContactUsServlet extends SlingAllMethodsServlet {
 	public final static String CONTENT_URL = "/content/stm/en/contactusAuthor";
-
+//"/bin/servlets/contactus".json
 	/** Default log. */
 	protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
