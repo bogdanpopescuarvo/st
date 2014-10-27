@@ -61,9 +61,6 @@ public class ContactUsServlet extends SlingAllMethodsServlet {
 			// can be done in map or with Query methods
 			map.put("p.offset", "0"); // same as query.setStart(0) below
 			map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
-			map.put("p.hits", "full");
-			map.put("p.nodedepth", "3"); // same as query.setHitsPerPage(20)
-											// below
 
 			Query query = builder.createQuery(PredicateGroup.create(map),
 					resourceResolver.adaptTo(Session.class));

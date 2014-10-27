@@ -34,5 +34,15 @@
             fieldLabel="State"
             name="./state"
             xtype="textfield"/>
+        <countries
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Country"
+            name="./country"
+            options="/etc/st/countries.json"
+            optionsRoot="countries"
+            optionsTextField="name"
+            optionsValueField="code"
+            type="select"
+            xtype="selection"/>
     </items>
 </jcr:root>
