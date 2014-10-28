@@ -1,9 +1,22 @@
+<script>
+function getCountry(){
+ var countryCode= "${properties['country'] @ context='scriptToken'}";
+ $.get("/etc/st/countries.json", function( data ) {
+ 			 tmpObj  = $.grep(data.countries, function(obj){
+                if(obj.code==countryCode){
+                    $("#country").text("").text(obj.name);
+                }
+			});
+
+		}, "json" );
+}
+</script>
 This is the office location...
-
 ${properties['address']} <br/>
-
-
-Lat/Long from Google....<br/>
-${office.coordinates.lat || 'empty'}, ${office.coordinates.lng || 'also empty'}
-${office.HELLO}
+${properties['officeName']} <br/>
+Latitude : ${properties['latitude']} <br/>
+Longitude : ${properties['longitude']} <br/>
+City : ${properties['city']} <br/>
+State : ${properties['state']} <br/>
+Country : <div id="country"><script>getCountry();</script></div>
 
