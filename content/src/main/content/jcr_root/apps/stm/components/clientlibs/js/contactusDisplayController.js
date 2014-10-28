@@ -42,12 +42,12 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
 
 
 	$scope.loadReportByLocation = function() {
-        $scope.filter = 'city:'+$scope.location;
+        $scope.filter = $scope.location;
         $scope.loadReport();
     }
 
 	$scope.loadReportByType = function() {
-        $scope.filter = 'contactType:'+$scope.contactType;
+        $scope.filter = $scope.contactType;
         $scope.loadReport();
     }
 
