@@ -102,12 +102,12 @@
 					<tr>
 						<td>
 							<select ng-model="contactType" ng-change="loadReportByType()">
-	      						<option value="headquarter">Headquarter</option>
-								<option value="designConsultants">Design Consultants</option>
-								<option value="distribution">Distribution</option>
-								<option value="manufacturingAndDesignCenters">Manufacturing and Design Centers</option>
-								<option value="salesOfficesAndRepresentatives">Sales offices and Representatives</option>
-								<option value="thirdParties">Third Parties</option>
+	      						<option value="Headquarter">Headquarter</option>
+								<option value="Design Consultants">Design Consultants</option>
+								<option value="Distribution">Distribution</option>
+								<option value="Manufacturing and Design Centers">Manufacturing and Design Centers</option>
+								<option value="Sales offices and Representatives">Sales offices and Representatives</option>
+								<option value="Third Parties">Third Parties</option>
 								<option value="Warehouses">Warehouses</option>
 	   						</select>
 						</td>						
