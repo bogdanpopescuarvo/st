@@ -10,12 +10,10 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
 	var myStartingDataPromise = GetAllContacts.getData();
 	myStartingDataPromise.then(function(result) {  //
        	$scope.locationMarkers = result;  
-
 		$scope.processJsonPromise();
-
     });
 
-	alert($scope.locationMarkers);
+
 
     $scope.centerMap = function(lat,long) {        
  		$scope.map.setCenter(new google.maps.LatLng(lat, long));
@@ -39,6 +37,7 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
 
             localaddressSets.push(addressSet);
 			$scope.addressSets = localaddressSets;
+        	alert('adresssets done' + $scope.addressSets.length );
     }
 
 
@@ -74,8 +73,7 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
 
 
 	$scope.$watch('locationMarkers', function() {		
-        var infoWindow = new google.maps.InfoWindow(); 
-
+        var infoWindow = new google.maps.InfoWindow(); 		
         for (var i = 0; i < $scope.markers.length; i++) {
    			 $scope.markers[i].setMap(null);
   		}
@@ -83,10 +81,10 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
         var createMarker = function (info){            
             var marker = new google.maps.Marker({
                 map: $scope.map,
-                position: new google.maps.LatLng(info.lat, info.lon),
-                title: info.city
+                position: new google.maps.LatLng(info.officeLocation.latitude, info.officeLocation.longitude),
+                title: info.officeDetails.officeName
             });
-            marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+            marker.content = '<div class="infoWindowContent">' + info.officeDetails.contacttype + '</div>';
             
             google.maps.event.addListener(marker, 'click', function(){
                 infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);

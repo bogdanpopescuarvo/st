@@ -22,8 +22,10 @@ contactusDisplayServices.factory('GetAllContactsFitered',
     var getData = function(contactType) {       
         var deferred = $q.defer();
 		//var url = location.pathname.replace(".html", "/_jcr_content.persist.json") ;  
-		var url = '/bin/servlets/contactus.type='+contactType+'.json';
-		$http.post(url,
+		var url = '/bin/servlets/contactus.'+contactType+'.json';
+
+		/*
+        $http.post(url,
         		{'contactType': contactType},
         		{
         			headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
@@ -31,8 +33,10 @@ contactusDisplayServices.factory('GetAllContactsFitered',
         		}).success(function(result){
            		 deferred.resolve(result);
         })
-
-
+		*/
+ 		$http({method:"GET", url:url}).success(function(result){
+            deferred.resolve(result);
+        });
         return deferred.promise;
     };
      return { getData : getData };

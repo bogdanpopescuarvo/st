@@ -72,7 +72,7 @@
 
 <body ng-app="contactusDisplayApp" ng-controller="ContactusDisplayCtrl">
 <div>
-    <span class="page-title">Contact Us r{{angTest}}</span>
+    <span class="page-title">Contact Us</span>
 	</br></br>
  	<div id="map"></div>   
 	</br>
@@ -123,11 +123,11 @@
 
         <tr ng-repeat="group in addressSets">
         	<td ng-repeat="location in group" width="33%">
-            	{{ location.name }}<br>
-				{{ location.address }}<br>
-				{{ location.city }}<br>
-				{{ location.description }}<br>
-                <a href="#" ng-click="centerMap(location.lat, location.lon)">View Map</a>
+            	{{ location.officeDetails.officeName }}<br>
+				{{ location.officeDetails.description }}<br>
+				{{ location.officeDetails.phone }}<br>
+				{{ location.officeDetails.fax }}<br>
+                <a href="#" ng-click="centerMap(location.officeLocation.latitude, location.officeLocation.longitude)">View Map</a>
         	</td>
     	</tr>
 
