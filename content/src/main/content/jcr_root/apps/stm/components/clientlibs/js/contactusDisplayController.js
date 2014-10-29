@@ -37,7 +37,6 @@ contactusDisplayController.controller('ContactusDisplayCtrl', ['$scope', '$http'
 
             localaddressSets.push(addressSet);
 			$scope.addressSets = localaddressSets;
-        	alert('adresssets done' + $scope.addressSets.length );
     }
 
 

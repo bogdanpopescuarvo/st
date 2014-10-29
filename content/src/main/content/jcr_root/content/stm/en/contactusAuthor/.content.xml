@@ -8,5 +8,6 @@
         jcr:primaryType="cq:PageContent"
         jcr:title="Contact Us Author"
         sling:resourceType="stm/components/page-default"/>
-    <ListLocations/>
+    <catania/>
+    <roma/>
 </jcr:root>

@@ -14,15 +14,15 @@
             fieldLabel="Office Name"
             name="./officename"
             xtype="textfield"/>
-        <longitude
-            jcr:primaryType="cq:Widget"
-            fieldLabel="Longitude"
-            name="./longitude"
-            xtype="textfield"/>
         <latitude
             jcr:primaryType="cq:Widget"
             fieldLabel="Latitude"
             name="./latitude"
+            xtype="textfield"/>
+        <longitude
+            jcr:primaryType="cq:Widget"
+            fieldLabel="Longitude"
+            name="./longitude"
             xtype="textfield"/>
         <city
             jcr:primaryType="cq:Widget"

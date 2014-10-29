@@ -1,4 +1,17 @@
 
+<script data-sly-test="${properties.country}">
+function getCountry(){
+ var countryCode= "${properties['country'] @ context='scriptToken'}";
+ $.get("/etc/st/countries.json", function( data ) {
+ 			 tmpObj  = $.grep(data.countries, function(obj){
+                if(obj.code==countryCode){
+                    $("#country").text("").text(obj.name);
+                }
+			});
+
+		}, "json" );
+}
+</script>
 This is the office location...
 ${properties['address']} <br/>
 ${properties['officeName']} <br/>
@@ -6,4 +19,6 @@ Latitude : ${properties['latitude']} <br/>
 Longitude : ${properties['longitude']} <br/>
 City : ${properties['city']} <br/>
 State : ${properties['state']} <br/>
-
+<div data-sly-test="${properties.country}">
+Country : <span id="country"><script>getCountry();</script></span>
+</div>

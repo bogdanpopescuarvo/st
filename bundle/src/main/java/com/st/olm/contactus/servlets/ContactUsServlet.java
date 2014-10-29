@@ -67,7 +67,6 @@ public class ContactUsServlet extends SlingAllMethodsServlet {
 
 			SearchResult result = query.getResult();
 			List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-			HashMap<String, Object> obj = new HashMap<String, Object>();
 			for (Hit hit : result.getHits()) {
 				Page page = hit.getResource().adaptTo(Page.class);
 
@@ -75,6 +74,7 @@ public class ContactUsServlet extends SlingAllMethodsServlet {
 						.getContentResource("content/officedetails");
 				Resource resLocation = page
 						.getContentResource("content/officelocation");
+				HashMap<String, Object> obj = new HashMap<String, Object>();
 				obj.put("officeDetails", resDetails.getValueMap());
 				obj.put("officeLocation", resLocation.getValueMap());
 				items.add(obj);
